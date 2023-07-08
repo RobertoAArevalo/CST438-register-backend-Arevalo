@@ -32,25 +32,45 @@ public class StudentController {
 
         // Add the student to the system
         srepo.save(student);
+        //return student;
         return ResponseEntity.status(HttpStatus.CREATED).body(student);
     }
     
     @PutMapping("/{id}/no-hold")
     public Student putStudentHold(@PathVariable("id") int student_id) throws Exception {
+    	// looking for the student
     	java.util.Optional<Student> optionalStudent = srepo.findById(student_id);
+    	// if not exist, throw error.
     	if(!optionalStudent.isPresent()) {
     		throw new Exception("Student not registered");
     	}
     	
     	Student student = optionalStudent.get();
     	student.setStatus("Hold");
-    	student.setStatusCode(0);
-    	Student currentStudent = srepo.save(student);
-		return currentStudent;
+    	student.setStatusCode(1);
+    	//Student currentStudent = srepo.save(student);
+		//return currentStudent;
+    	
+    	return srepo.save(student);
     	
     }
     
-    
+    @PutMapping("/{id}/release-hold")
+    public Student setToRelease(@PathVariable("id") int student_id) throws Exception {
+    	java.util.Optional<Student> optionalStudent = srepo.findById(student_id);
+    	if (!optionalStudent.isPresent()) {
+    		throw new Exception ("Not Found");
+    	}
+    	Student student = optionalStudent.get();
+    	
+    	student.setStatus("Release");
+    	student.setStatusCode(0);
+    	
+    	return srepo.save(student);
+    }
+    public StudentRepository getRepo() {
+    	return srepo;
+    }
 }
 
 
