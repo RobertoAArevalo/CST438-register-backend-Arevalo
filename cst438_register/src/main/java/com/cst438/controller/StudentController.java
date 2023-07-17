@@ -3,6 +3,7 @@ package com.cst438.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,6 +19,7 @@ import com.google.common.base.Optional;
 
 @RestController
 @RequestMapping("/students")
+@CrossOrigin(origins = {"http://localhost:3000", "https://registerf-cst438.herokuapp.com/"})
 public class StudentController {
 
     @Autowired
@@ -72,7 +74,7 @@ public class StudentController {
     	return srepo;
     }
 }
-
+//test for committing only
 
 
 
